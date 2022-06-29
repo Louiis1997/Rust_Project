@@ -57,10 +57,10 @@ fn main() {
         match stream.read_exact(&mut data) {
             Ok(_) => {
                 let size = u32::from_be_bytes(data) as usize;
-                let mut data_res : Vec<u8> = vec![0u8; size.try_into().unwrap()];
-                match stream.read_exact(&mut data_res) {
+                let mut data : Vec<u8> = vec![0u8; size];
+                match stream.read_exact(&mut data) {
                     Ok(_) => {
-                       return data_res;
+                       return data;
                     },
                     Err(e) => {
                         panic!("Failed to receive data: {}", e);
